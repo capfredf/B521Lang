@@ -5,28 +5,33 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class Env {
-    private ArrayList<Pair<String, Value>> storage;
+    String _var;
+    Value _val;
+    private Env _parent;
     public Env() {
-        storage = new ArrayList<Pair<String, Value>>();
+        _parent = null;
     }
 
-    public Env(ArrayList<Pair<String, Value>> s) {
-        storage = s;
+    public Env(Env parent) {
+        this();
+        _parent = parent;
     }
     public Env extend(String var, Value val) {
-        ArrayList<Pair<String, Value>> newStorage = (ArrayList<Pair<String, Value>>) storage.clone();
-        Pair<String, Value> p = new Pair<String, Value>(var, val);
-        newStorage.add(p);
-        Env newEnv = new Env(newStorage);
+        Env newEnv = new Env(this);
+        newEnv._var = var;
+        newEnv._val = val;
         return newEnv;
     }
 
     public Value lookUp(String var) {
-        for (Pair<String, Value> temp : storage) {
-            if (temp.getKey() == var) {
-                return temp.getValue();
+        if (_parent == null) {
+            throw new IllegalArgumentException(String.format("identifier %s is not bound", var));
+        } else {
+            if (var == _var) {
+                return _val;
+            } else {
+                return _parent.lookUp(var);
             }
         }
-        throw new IllegalArgumentException(String.format("identifier %s is not bound", var));
     }
 }
