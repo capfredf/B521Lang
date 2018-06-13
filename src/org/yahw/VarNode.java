@@ -1,5 +1,7 @@
 package org.yahw;
 
+import com.oracle.truffle.api.frame.VirtualFrame;
+
 public class VarNode extends B521LangNode {
     String var;
     public VarNode (String initVar) {
@@ -11,7 +13,8 @@ public class VarNode extends B521LangNode {
     }
 
     @Override
-    public Value eval(Env e) {
-        return e.lookUp(var);
+    public Object execute(VirtualFrame frame) {
+        return null;
+//        return e.lookUp(var);
     }
 }

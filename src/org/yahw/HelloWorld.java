@@ -6,12 +6,12 @@ public class HelloWorld {
         B521LangNode a, b, c, body, lambda, app;
 //        test();
 //        a = new IntNode(10);
-        a = new VarNode("x");
-        b = new IntNode(10);
-        body = new PlusNode(a, b);
-        lambda = new LambdaNode("x", body);
-        c = new AppNode(lambda, new IntNode(10));
-        System.out.println("Hello, World!!!!" + c.eval(new Env()).show());
+//        a = new VarNode("x");
+//        b = new IntNode(10);
+//        body = new PlusNode(a, b);
+//        lambda = new LambdaNode("x", body);
+//        c = new AppNode(lambda, new IntNode(10));
+//        System.out.println("Hello, World!!!!" + c.execute(new Env()).show());
     }
 
     static void test() {

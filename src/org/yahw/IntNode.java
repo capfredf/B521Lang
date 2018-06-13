@@ -1,12 +1,21 @@
 package org.yahw;
+
+import com.oracle.truffle.api.frame.VirtualFrame;
+
 public class IntNode extends B521LangNode{
-    private int val;
-    public IntNode(int initVal) {
-        val = initVal;
+    private IntValue _val;
+    public IntNode(int val) {
+        _val = new IntValue(val);
     }
 
     @Override
-    public Value eval(Env _) {
-        return new IntValue(val);
+    public Value executeIntValue(VirtualFrame frame) {
+        return _val;
     }
+
+    @Override
+    public Value execute(VirtualFrame frame) {
+        return _val;
+    }
+
 }

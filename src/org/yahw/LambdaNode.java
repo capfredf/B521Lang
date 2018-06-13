@@ -1,5 +1,7 @@
 package org.yahw;
 
+import com.oracle.truffle.api.frame.VirtualFrame;
+
 public class LambdaNode extends B521LangNode{
     VarNode var;
     B521LangNode body;
@@ -10,7 +12,8 @@ public class LambdaNode extends B521LangNode{
 
 
     @Override
-    public Value eval(Env e) {
-        return new ClosureValue(var, body, e);
+    public Object execute(VirtualFrame frame) {
+        return null;
+//        return new ClosureValue(var, body, e);
     }
 }
