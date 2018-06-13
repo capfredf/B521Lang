@@ -1,9 +1,5 @@
 package org.yahw;
 
-import javafx.util.Pair;
-
-import java.util.ArrayList;
-
 public class Env {
     String _var;
     Value _val;

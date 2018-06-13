@@ -1,9 +1,9 @@
 package org.yahw;
 
-public class LambdaNode extends Node{
+public class LambdaNode extends B521LangNode{
     VarNode var;
-    Node body;
-    public LambdaNode (String initVar, Node initBody) {
+    B521LangNode body;
+    public LambdaNode (String initVar, B521LangNode initBody) {
         var = new VarNode(initVar);
         body = initBody;
     }

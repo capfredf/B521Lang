@@ -3,7 +3,7 @@ import org.yahw.*;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        Node a, b, c, body, lambda, app;
+        B521LangNode a, b, c, body, lambda, app;
 //        test();
 //        a = new IntNode(10);
         a = new VarNode("x");

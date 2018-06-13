@@ -1,6 +1,6 @@
 package org.yahw;
 
-public class VarNode extends Node {
+public class VarNode extends B521LangNode {
     String var;
     public VarNode (String initVar) {
         var = initVar;
