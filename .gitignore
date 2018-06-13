@@ -50,4 +50,12 @@ crashlytics-build.properties
 fabric.properties
 
 # Editor-based Rest Client
-.idea/httpRequests
+.idea/httpRequeststarget/
+.gradle
+bin/
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+**/build

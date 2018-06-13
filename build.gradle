@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'idea'
+    id "net.ltgt.apt" version "0.3"
+}
+
+repositories {
+    maven {
+        url "http://lafo.ssw.uni-linz.ac.at/nexus/content/repositories/releases/"
+    }
+    jcenter()
+}
+
+dependencies {
+    compile 'com.oracle.truffle:truffle-api:0.12'
+
+    apt 'com.oracle.truffle:truffle-api:0.12'
+    apt 'com.oracle.truffle:truffle-dsl-processor:0.12'
+
+    testCompile 'junit:junit:4.12'
+}
+
+applicationName = 'yahw-lang'
+mainClassName = 'org.yahw.HelloWorld'
+
+run {
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    }
+}
