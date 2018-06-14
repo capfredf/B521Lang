@@ -9,7 +9,7 @@ public class AppNode extends B521LangNode {
         _rand = rand;
     }
     @Override
-    public Object execute(VirtualFrame frame) {
+    public Value execute(VirtualFrame frame) {
         return null;
 //        ClosureValue clos = (ClosureValue) _rator.eval(e);
 //        Value arg = _rand.eval(e);

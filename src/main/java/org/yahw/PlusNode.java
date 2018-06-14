@@ -1,18 +1,28 @@
 package org.yahw;
 
+import com.oracle.truffle.api.dsl.NodeChild;
+import com.oracle.truffle.api.dsl.NodeChildren;
+import com.oracle.truffle.api.dsl.Specialization;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.NodeInfo;
 
+@NodeInfo(shortName = "plus")
 public class PlusNode extends B521LangNode {
-    private B521LangNode oprand1, oprand2;
+    @Child private B521LangNode left, right;
+
     public PlusNode(B521LangNode x, B521LangNode y) {
-        oprand1 = x;
-        oprand2 = y;
+        left = x;
+        right = y;
     }
     @Override
-    public Object execute(VirtualFrame frame) {
-        return null;
-//        IntValue r1 = (IntValue) oprand1.eval(e);
-//        IntValue r2 = (IntValue) oprand2.eval(e);
-//        return new IntValue(r1.getVal()+r2.getVal());
+    public Value execute(VirtualFrame frame) {
+        IntValue r1 = (IntValue) left.execute(frame);
+        IntValue r2 = (IntValue) right.execute(frame);
+        return new IntValue(r1.getVal()+r2.getVal());
     }
+
+//     @Specialization
+//     public IntValue add(IntValue r1, IntValue r2) {
+//        return new IntValue(r1.getVal()+r2.getVal());
+//     }
 }

@@ -22,7 +22,7 @@ dependencies {
 }
 
 applicationName = 'yahw-lang'
-mainClassName = 'org.yahw.HelloWorld'
+mainClassName = 'HelloWorld'
 
 run {
     if (project.hasProperty("appArgs")) {

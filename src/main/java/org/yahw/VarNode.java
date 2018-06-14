@@ -13,7 +13,7 @@ public class VarNode extends B521LangNode {
     }
 
     @Override
-    public Object execute(VirtualFrame frame) {
+    public Value execute(VirtualFrame frame) {
         return null;
 //        return e.lookUp(var);
     }

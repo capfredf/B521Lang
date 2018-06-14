@@ -15,8 +15,8 @@ public class ClosureValue extends Value {
         return null;
     }
 
-    public Value apply(Value arg) {
-        Env newEnv = _env.extend(_var.getVar(), arg);
-        return _body.eval(newEnv);
-    }
+//    public Value apply(Value arg) {
+//        Env newEnv = _env.extend(_var.getVar(), arg);
+//        return _body.eval(newEnv);
+//    }
 }

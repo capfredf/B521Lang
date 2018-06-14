@@ -12,7 +12,7 @@ public class LambdaNode extends B521LangNode{
 
 
     @Override
-    public Object execute(VirtualFrame frame) {
+    public Value execute(VirtualFrame frame) {
         return null;
 //        return new ClosureValue(var, body, e);
     }
