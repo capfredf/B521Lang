@@ -15,9 +15,15 @@ public class HelloWorld {
                 globalFrameDescriptor);
 
 //        test();
-        a = new IntNode(10);
-        b = new IntNode(20);
-        c = new PlusNode(a, b);
+//        a = new IntNode(10);
+//        b = new IntNode(20);
+//        c = new PlusNode(a, b);
+        a = new VarNode("x");
+        b = new IntNode(30);
+        body = new PlusNode(a, b);
+        lambda = new LambdaNode(new VarNode("x"), body);
+        c = new AppNode(lambda, new IntNode(10));
+
         B521LangNode[] allNodes = {c};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         RootCallTarget rootTgtCall = Truffle.getRuntime().createCallTarget(rootNode);
@@ -25,11 +31,6 @@ public class HelloWorld {
 //        Value res = rootNode.execute(globalFrame);
         System.out.println("Result is " + res.show());
 //        a.execute(globalFrame);
-//        a = new VarNode("x");
-//        b = new IntNode(10);
-//        body = new PlusNode(a, b);
-//        lambda = new LambdaNode("x", body);
-//        c = new AppNode(lambda, new IntNode(10));
 //        System.out.println("Hello, World!!!!" + c.execute(new Env()).show());
     }
 

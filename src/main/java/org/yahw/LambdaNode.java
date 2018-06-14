@@ -1,19 +1,21 @@
 package org.yahw;
 
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.NodeInfo;
 
+@NodeInfo(shortName = "lambda")
 public class LambdaNode extends B521LangNode{
-    VarNode var;
-    B521LangNode body;
-    public LambdaNode (String initVar, B521LangNode initBody) {
-        var = new VarNode(initVar);
-        body = initBody;
+    @Child private VarNode var;
+    @Child private B521LangNode body;
+
+    public LambdaNode (VarNode var, B521LangNode body) {
+        this.var = var;
+        this.body = body;
     }
 
 
     @Override
     public Value execute(VirtualFrame frame) {
-        return null;
-//        return new ClosureValue(var, body, e);
+        return new ClosureValue(var, body, frame.materialize());
     }
 }

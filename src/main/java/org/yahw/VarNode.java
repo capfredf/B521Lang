@@ -4,8 +4,10 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 
 public class VarNode extends B521LangNode {
     String var;
-    public VarNode (String initVar) {
-        var = initVar;
+    int idx;
+    public VarNode (String var) {
+        this.var = var;
+        this.idx = 0;
     }
 
     public String getVar() {
@@ -14,7 +16,7 @@ public class VarNode extends B521LangNode {
 
     @Override
     public Value execute(VirtualFrame frame) {
-        return null;
+        return (Value) frame.getArguments()[this.idx+1];
 //        return e.lookUp(var);
     }
 }
