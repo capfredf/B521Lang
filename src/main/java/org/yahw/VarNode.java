@@ -4,6 +4,7 @@ import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.FrameSlotTypeException;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.ExplodeLoop;
 
 public class VarNode extends B521LangNode {
     String var;
@@ -15,6 +16,7 @@ public class VarNode extends B521LangNode {
         return var;
     }
 
+    @ExplodeLoop
     @Override
     public Value execute(VirtualFrame frame) {
         Value result = null;

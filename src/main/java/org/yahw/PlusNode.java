@@ -4,6 +4,7 @@ import com.oracle.truffle.api.dsl.NodeChild;
 import com.oracle.truffle.api.dsl.NodeChildren;
 import com.oracle.truffle.api.dsl.Specialization;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.ExplodeLoop;
 import com.oracle.truffle.api.nodes.NodeInfo;
 
 @NodeInfo(shortName = "plus")
@@ -14,6 +15,8 @@ public class PlusNode extends B521LangNode {
         left = x;
         right = y;
     }
+
+    @ExplodeLoop
     @Override
     public Value execute(VirtualFrame frame) {
         IntValue r1 = (IntValue) left.execute(frame);

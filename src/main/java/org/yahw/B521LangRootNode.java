@@ -3,6 +3,7 @@ package org.yahw;
 import com.oracle.truffle.api.CompilerDirectives;
 import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.ExplodeLoop;
 import com.oracle.truffle.api.nodes.RootNode;
 
 public class B521LangRootNode extends RootNode{
@@ -14,6 +15,8 @@ public class B521LangRootNode extends RootNode{
         super(B521Lang.class, null, frameDescriptor);
         this.bodyNodes = bodyNodes;
     }
+
+    @ExplodeLoop
     @Override
     public Value execute(VirtualFrame frame) {
         int last = bodyNodes.length - 1;

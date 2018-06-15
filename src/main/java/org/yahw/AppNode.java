@@ -2,6 +2,7 @@ package org.yahw;
 
 import com.oracle.truffle.api.Truffle;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.nodes.ExplodeLoop;
 import com.oracle.truffle.api.nodes.IndirectCallNode;
 
 public class AppNode extends B521LangNode {
@@ -12,6 +13,8 @@ public class AppNode extends B521LangNode {
         _rand = rand;
         this.callNode = Truffle.getRuntime().createIndirectCallNode();
     }
+
+    @ExplodeLoop
     @Override
     public Value execute(VirtualFrame frame) {
         ClosureValue clos = (ClosureValue) _rator.execute(frame);
