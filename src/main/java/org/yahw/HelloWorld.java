@@ -51,10 +51,12 @@ public class HelloWorld {
 
         B521LangNode[] allNodes = {app};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
+        long start = System.currentTimeMillis();
         RootCallTarget rootTgtCall = Truffle.getRuntime().createCallTarget(rootNode);
         Value res = (Value) rootTgtCall.call(new Object[] {globalFrame.materialize()});
 //        Value res = rootNode.execute(globalFrame);
         System.out.println("Result is " + res.show());
+        System.out.println("Time used: " + (System.currentTimeMillis() - start));
 //        a.execute(globalFrame);
 //        System.out.println("Hello, World!!!!" + c.execute(new Env()).show());
     }
