@@ -16,7 +16,8 @@ public class AppNode extends B521LangNode {
     public Value execute(VirtualFrame frame) {
         ClosureValue clos = (ClosureValue) _rator.execute(frame);
         Value arg = _rand.execute(frame);
-        Object[] arguments= {clos.getLexicalScope(), arg};
+        clos.extendEnv(arg);
+        Object[] arguments= {clos.getLexicalScope()};
         return (Value) this.callNode.call(frame, clos.callTarget, arguments);
     }
 

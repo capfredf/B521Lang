@@ -1,5 +1,7 @@
 package org.yahw;
 
+import com.oracle.truffle.api.frame.FrameDescriptor;
+import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.NodeInfo;
 
@@ -16,6 +18,7 @@ public class LambdaNode extends B521LangNode{
 
     @Override
     public Value execute(VirtualFrame frame) {
-        return new ClosureValue(var, body, frame.materialize());
+        FrameDescriptor frameDescriptor = frame.getFrameDescriptor();
+        return new ClosureValue(var, body, frame);
     }
 }
