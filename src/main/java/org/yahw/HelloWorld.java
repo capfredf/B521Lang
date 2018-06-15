@@ -9,7 +9,7 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        B521LangNode a, b, c, body, lambda, app;
+        B521LangNode app;
         FrameDescriptor globalFrameDescriptor = new FrameDescriptor();
         VirtualFrame globalFrame = Truffle.getRuntime().createVirtualFrame(null,
                 globalFrameDescriptor);
@@ -18,13 +18,38 @@ public class HelloWorld {
 //        a = new IntNode(10);
 //        b = new IntNode(20);
 //        c = new PlusNode(a, b);
-        a = new VarNode("x");
-        b = new IntNode(30);
-        body = new PlusNode(a, b);
-        lambda = new LambdaNode(new VarNode("x"), body);
-        c = new AppNode(lambda, new IntNode(10));
+//        a = new VarNode("x");
+//        b = new VarNode("x");
+//        body = new PlusNode(a, b);
+//        lambda = new LambdaNode(new VarNode("x"), body);
+//        outter = new LambdaNode(new VarNode("x"), lambda);
+//        c = new AppNode(outter, new IntNode(10));
+//        app = new AppNode(c, new IntNode(30));
+        app = new AppNode(
+                new AppNode(
+                        new LambdaNode(new VarNode("x"),
+                                new LambdaNode(new VarNode("x"),
+                                        new PlusNode(new VarNode("x"), new VarNode("x"))
+                                )
+                        ),
+                        new IntNode(10)
+                ),
+                new IntNode(30)
+        );
 
-        B521LangNode[] allNodes = {c};
+        app = new AppNode(
+                    new LambdaNode(new VarNode("x"),
+                            new AppNode(
+                                    new LambdaNode(new VarNode("x"),
+                                            new PlusNode(new VarNode("x"), new VarNode("x"))
+                                    ),
+                                    new IntNode(10)
+                            )
+                        ),
+                    new IntNode(30)
+        );
+
+        B521LangNode[] allNodes = {app};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         RootCallTarget rootTgtCall = Truffle.getRuntime().createCallTarget(rootNode);
         Value res = (Value) rootTgtCall.call(new Object[] {globalFrame.materialize()});

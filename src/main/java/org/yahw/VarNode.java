@@ -17,15 +17,23 @@ public class VarNode extends B521LangNode {
 
     @Override
     public Value execute(VirtualFrame frame) {
-        VirtualFrame lexicalScope = (VirtualFrame) frame.getArguments()[0];
-        try {
-            FrameDescriptor frameDescriptor = lexicalScope.getFrameDescriptor();
+        Value result = null;
+        VirtualFrame scope = frame;
+
+        while (result == null) {
+            scope = (VirtualFrame) scope.getArguments()[0];
+            FrameDescriptor frameDescriptor = scope.getFrameDescriptor();
             FrameSlot slot = frameDescriptor.findFrameSlot(this.var);
-            return (Value) lexicalScope.getObject(slot);
-        } catch (FrameSlotTypeException e) {
-            e.printStackTrace();
+            if (slot == null) {
+                throw new IllegalArgumentException(String.format("identifier %s is not bound", var));
+            }
+            try {
+                result = (Value) scope.getObject(slot);
+            } catch (FrameSlotTypeException e) {
+                throw new IllegalArgumentException("slot is null...");
+            }
         }
-        return null;
+        return result;
 //        return e.lookUp(var);
     }
 }

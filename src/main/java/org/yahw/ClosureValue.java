@@ -4,7 +4,6 @@ import com.oracle.truffle.api.RootCallTarget;
 import com.oracle.truffle.api.Truffle;
 import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.FrameSlot;
-import com.oracle.truffle.api.frame.MaterializedFrame;
 import com.oracle.truffle.api.frame.VirtualFrame;
 
 public class ClosureValue extends Value {
@@ -28,7 +27,7 @@ public class ClosureValue extends Value {
         FrameSlot slot = frameDescriptor.findOrAddFrameSlot(this.slotId);
         this.lexicalScope.setObject(slot, arg);
     }
-    public VirtualFrame getLexicalScope() {
+    public VirtualFrame getEnv() {
         return lexicalScope;
     }
 
