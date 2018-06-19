@@ -1,5 +1,5 @@
 package org.yahw;
-public class IntNode extends Node{
+public class IntNode extends B521LangNode {
     private int val;
     public IntNode(int initVal) {
         val = initVal;
