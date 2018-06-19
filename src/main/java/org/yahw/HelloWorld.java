@@ -49,6 +49,13 @@ public class HelloWorld {
                     new IntNode(30)
         );
 
+        app = new IfNode(
+                (new isZeroNode(new IntNode(0))),
+                new IntNode(20),
+                new IntNode(10)
+        );
+
+
         B521LangNode[] allNodes = {app};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         long start = System.currentTimeMillis();
