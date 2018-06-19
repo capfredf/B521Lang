@@ -9,7 +9,7 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        B521LangNode app;
+        B521LangNode app, Ycomb, almostSum;
         FrameDescriptor globalFrameDescriptor = new FrameDescriptor();
         VirtualFrame globalFrame = Truffle.getRuntime().createVirtualFrame(null,
                 globalFrameDescriptor);
@@ -51,17 +51,52 @@ public class HelloWorld {
 
         app = new IfNode(
                 (new isZeroNode(new IntNode(0))),
-                new IntNode(20),
+                new PredNode(new IntNode(20)),
                 new IntNode(10)
         );
 
+        Ycomb = new LambdaNode(
+                new VarNode("f"),
+                new AppNode(
+                        new LambdaNode(
+                                new VarNode("z"),
+                                new AppNode(
+                                        new VarNode("f"),
+                                        new LambdaNode(
+                                                new VarNode("y"),
+                                                new AppNode(
+                                                        new AppNode(new VarNode("z"), new VarNode("z")),
+                                                        new VarNode("y"))))),
+                        new LambdaNode(
+                                new VarNode("x"),
+                                new AppNode(
+                                        new VarNode("f"),
+                                        new LambdaNode(
+                                                new VarNode("y"),
+                                                new AppNode(
+                                                        new AppNode(new VarNode("x"), new VarNode("x")),
+                                                        new VarNode("y")))))));
+        almostSum = new LambdaNode(new VarNode("self"),
+                new LambdaNode(new VarNode("n"),
+                        new IfNode(
+                                new isZeroNode(new VarNode("n")),
+                                new IntNode(0),
+                                new PlusNode(new VarNode("n"),
+                                        (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
+
+        // TODO bug in name collision in variable lookup
+        app = new AppNode(new AppNode(Ycomb, almostSum), new IntNode(100));
+//        app = new AppNode(new AppNode(
+//                almostSum,
+//                new LambdaNode(new VarNode("x"),
+//                        new PredNode(new VarNode("x")))), new IntNode(10));
 
         B521LangNode[] allNodes = {app};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         long start = System.currentTimeMillis();
         RootCallTarget rootTgtCall = Truffle.getRuntime().createCallTarget(rootNode);
         Value res = (Value) rootTgtCall.call(new Object[] {globalFrame.materialize()});
-//        Value res = rootNode.execute(globalFrame);
+        //Value res = rootNode.execute(globalFrame);
         System.out.println("Result is " + res.show());
         System.out.println("Time used: " + (System.currentTimeMillis() - start));
 //        a.execute(globalFrame);
