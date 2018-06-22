@@ -8,6 +8,7 @@ import com.oracle.truffle.api.frame.VirtualFrame;
 
 
 public class HelloWorld {
+
     public static void main(String[] args) {
         B521LangNode app, Ycomb, almostSum;
         FrameDescriptor globalFrameDescriptor = new FrameDescriptor();
@@ -55,27 +56,52 @@ public class HelloWorld {
                 new IntNode(10)
         );
 
-        Ycomb = new LambdaNode(
-                new VarNode("f"),
-                new AppNode(
-                        new LambdaNode(
-                                new VarNode("z"),
-                                new AppNode(
-                                        new VarNode("f"),
-                                        new LambdaNode(
-                                                new VarNode("y"),
-                                                new AppNode(
-                                                        new AppNode(new VarNode("z"), new VarNode("z")),
-                                                        new VarNode("y"))))),
-                        new LambdaNode(
-                                new VarNode("x"),
-                                new AppNode(
-                                        new VarNode("f"),
-                                        new LambdaNode(
-                                                new VarNode("y"),
-                                                new AppNode(
-                                                        new AppNode(new VarNode("x"), new VarNode("x")),
-                                                        new VarNode("y")))))));
+        Ycomb = new DefineNode("Y",
+                new LambdaNode(
+                        new VarNode("f"),
+                        new AppNode(
+                                new LambdaNode(
+                                        new VarNode("z"),
+                                    new AppNode(
+                                            new VarNode("f"),
+                                            new LambdaNode(
+                                                    new VarNode("y"),
+                                                    new AppNode(
+                                                            new AppNode(new VarNode("z"), new VarNode("z")),
+                                                            new VarNode("y"))))),
+                            new LambdaNode(
+                                    new VarNode("x"),
+                                    new AppNode(
+                                            new VarNode("f"),
+                                            new LambdaNode(
+                                                    new VarNode("y"),
+                                                    new AppNode(
+                                                            new AppNode(new VarNode("x"), new VarNode("x")),
+                                                            new VarNode("y"))))))));
+
+        DefineNode Ycomb2 = new DefineNode("Y2",
+                new LambdaNode(
+                        new VarNode("f2"),
+                        new AppNode(
+                                new LambdaNode(
+                                        new VarNode("z2"),
+                                        new AppNode(
+                                                new VarNode("f2"),
+                                                new LambdaNode(
+                                                        new VarNode("y2"),
+                                                        new AppNode(
+                                                                new AppNode(new VarNode("z2"), new VarNode("z2")),
+                                                                new VarNode("y2"))))),
+                                new LambdaNode(
+                                        new VarNode("x2"),
+                                        new AppNode(
+                                                new VarNode("f2"),
+                                                new LambdaNode(
+                                                        new VarNode("y2"),
+                                                        new AppNode(
+                                                                new AppNode(new VarNode("x2"), new VarNode("x2")),
+                                                                new VarNode("y2"))))))));
+
         almostSum = new LambdaNode(new VarNode("self"),
                 new LambdaNode(new VarNode("n"),
                         new IfNode(
@@ -84,18 +110,31 @@ public class HelloWorld {
                                 new PlusNode(new VarNode("n"),
                                         (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
 
+        B521LangNode almostSumInLoop = new LambdaNode(new VarNode("self1"),
+                new LambdaNode(new VarNode("m"),
+                        new IfNode(
+                                new isZeroNode(new VarNode("m")),
+                                new AppNode(new VarNode("sum"), new IntNode(500)),
+                                new Begin2Node(new AppNode(new VarNode("sum"), new IntNode(500)),
+                                        (new AppNode(new VarNode("self1"), (new PredNode(new VarNode("m")))))))));
+
         // TODO bug in name collision in variable lookup
-        app = new AppNode(new AppNode(Ycomb, almostSum), new IntNode(100));
+        B521LangNode defineSum = new DefineNode("sum", new AppNode(new VarNode("Y"), almostSum));
+        B521LangNode defineLoopSum = new DefineNode("loop-sum", new AppNode(new VarNode("Y2"), almostSumInLoop));
+        app = new Begin2Node(new AppNode(new VarNode("loop-sum"),  new IntNode(6)),
+                new AppNode(new VarNode("sum"),  new IntNode(500)));
 //        app = new AppNode(new AppNode(
-//                almostSum,
+//                almostSumIn,
 //                new LambdaNode(new VarNode("x"),
 //                        new PredNode(new VarNode("x")))), new IntNode(10));
-
-        B521LangNode[] allNodes = {app};
+        DefineNode def = new DefineNode("x", new IntNode(10));
+        B521LangNode[] allNodes = {Ycomb, Ycomb2, defineSum, defineLoopSum, app};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         long start = System.currentTimeMillis();
+        Value res = null;
         RootCallTarget rootTgtCall = Truffle.getRuntime().createCallTarget(rootNode);
-        Value res = (Value) rootTgtCall.call(new Object[] {globalFrame.materialize()});
+        res = (Value) rootTgtCall.call(new Object[]{globalFrame.materialize()});
+
         //Value res = rootNode.execute(globalFrame);
         System.out.println("Result is " + res.show());
         System.out.println("Time used: " + (System.currentTimeMillis() - start));
