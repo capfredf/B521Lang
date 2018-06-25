@@ -121,14 +121,18 @@ public class HelloWorld {
         // TODO bug in name collision in variable lookup
         B521LangNode defineSum = new DefineNode("sum", new AppNode(new VarNode("Y"), almostSum));
         B521LangNode defineLoopSum = new DefineNode("loop-sum", new AppNode(new VarNode("Y2"), almostSumInLoop));
-        app = new Begin2Node(new AppNode(new VarNode("loop-sum"),  new IntNode(6)),
-                new AppNode(new VarNode("sum"),  new IntNode(500)));
+        app = new PrintlnNode(new AppNode(new VarNode("sum"),  new IntNode(500)));
+
+        B521LangNode startNode = new DefineNode("start", new NowNode());
+        B521LangNode end = new PrintlnNode(new MinusNode(new NowNode(), new VarNode("start")));
 //        app = new AppNode(new AppNode(
 //                almostSumIn,
 //                new LambdaNode(new VarNode("x"),
 //                        new PredNode(new VarNode("x")))), new IntNode(10));
         DefineNode def = new DefineNode("x", new IntNode(10));
-        B521LangNode[] allNodes = {Ycomb, Ycomb2, defineSum, defineLoopSum, app};
+        B521LangNode[] allNodes = {Ycomb, Ycomb2, defineSum, defineLoopSum,
+                new AppNode(new VarNode("loop-sum"),  new IntNode(6)),
+                startNode, app, end};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         long start = System.currentTimeMillis();
         Value res = null;
@@ -136,8 +140,8 @@ public class HelloWorld {
         res = (Value) rootTgtCall.call(new Object[]{globalFrame.materialize()});
 
         //Value res = rootNode.execute(globalFrame);
-        System.out.println("Result is " + res.show());
-        System.out.println("Time used: " + (System.currentTimeMillis() - start));
+        // System.out.println("Result is " + res.show());
+        System.out.println("Time used: " + ((int) System.currentTimeMillis() - (int) start));
 //        a.execute(globalFrame);
 //        System.out.println("Hello, World!!!!" + c.execute(new Env()).show());
     }
