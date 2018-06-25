@@ -105,23 +105,24 @@ public class HelloWorld {
         almostSum = new LambdaNode(new VarNode("self"),
                 new LambdaNode(new VarNode("n"),
                         new IfNode(
-                                new isZeroNode(new VarNode("n")),
-                                new IntNode(0),
-                                new PlusNode(new VarNode("n"),
+                                new LessThanEqual(new VarNode("n"), new IntNode(1)),
+                                new VarNode("n"),
+//                                new PlusNode(new VarNode("n"), (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
+                                new PlusNode((new AppNode(new VarNode("self"), (new MinusNode(new VarNode("n"), new IntNode(2))))),
                                         (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
 
         B521LangNode almostSumInLoop = new LambdaNode(new VarNode("self1"),
                 new LambdaNode(new VarNode("m"),
                         new IfNode(
                                 new isZeroNode(new VarNode("m")),
-                                new AppNode(new VarNode("sum"), new IntNode(500)),
-                                new Begin2Node(new AppNode(new VarNode("sum"), new IntNode(500)),
+                                new AppNode(new VarNode("sum"), new IntNode(25)),
+                                new Begin2Node(new AppNode(new VarNode("sum"), new IntNode(25)),
                                         (new AppNode(new VarNode("self1"), (new PredNode(new VarNode("m")))))))));
 
         // TODO bug in name collision in variable lookup
         B521LangNode defineSum = new DefineNode("sum", new AppNode(new VarNode("Y"), almostSum));
         B521LangNode defineLoopSum = new DefineNode("loop-sum", new AppNode(new VarNode("Y2"), almostSumInLoop));
-        app = new PrintlnNode(new AppNode(new VarNode("sum"),  new IntNode(500)));
+        app = new PrintlnNode(new AppNode(new VarNode("sum"),  new IntNode(25)));
 
         B521LangNode startNode = new DefineNode("start", new NowNode());
         B521LangNode end = new PrintlnNode(new MinusNode(new NowNode(), new VarNode("start")));
