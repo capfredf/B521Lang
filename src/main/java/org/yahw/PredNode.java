@@ -11,16 +11,12 @@ public class PredNode extends B521LangNode {
 
     @ExplodeLoop
     @Override
-    public Value execute(VirtualFrame frame) {
-        Value result = this.node.execute(frame);
-        if (result instanceof IntValue) {
-            int val = ((IntValue) result).getVal();
-            if (val == 0) {
-                return ((IntValue) result);
-            } else {
-                return new IntValue(val - 1);
-            }
+    public Object execute(VirtualFrame frame) {
+        int val = (int) this.node.execute(frame);
+        if (val == 0) {
+            return val;
+        } else {
+            return val - 1;
         }
-        return null;
     }
 }

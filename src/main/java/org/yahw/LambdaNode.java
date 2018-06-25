@@ -17,7 +17,7 @@ public class LambdaNode extends B521LangNode{
 
 
     @Override
-    public Value execute(VirtualFrame frame) {
+    public Object execute(VirtualFrame frame) {
         FrameDescriptor frameDescriptor = frame.getFrameDescriptor();
         return new ClosureValue(var, body, frame);
     }

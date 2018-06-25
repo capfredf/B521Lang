@@ -18,14 +18,9 @@ public class PlusNode extends B521LangNode {
 
     @ExplodeLoop
     @Override
-    public Value execute(VirtualFrame frame) {
-        IntValue r1 = (IntValue) left.execute(frame);
-        IntValue r2 = (IntValue) right.execute(frame);
-        return new IntValue(r1.getVal()+r2.getVal());
+    public Object execute(VirtualFrame frame) {
+        int r1 = (int) left.execute(frame);
+        int r2 = (int) right.execute(frame);
+        return r1 + r2;
     }
-
-//     @Specialization
-//     public IntValue add(IntValue r1, IntValue r2) {
-//        return new IntValue(r1.getVal()+r2.getVal());
-//     }
 }

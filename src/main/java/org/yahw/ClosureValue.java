@@ -22,7 +22,7 @@ public class ClosureValue extends Value {
         this.lexicalScope = lexicalScope;
     }
 
-    public void extendEnv(Value arg) {
+    public void extendEnv(Object arg) {
         FrameDescriptor frameDescriptor = this.lexicalScope.getFrameDescriptor();
         FrameSlot slot = frameDescriptor.findOrAddFrameSlot(this.slotId);
         this.lexicalScope.setObject(slot, arg);

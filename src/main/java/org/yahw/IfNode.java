@@ -15,9 +15,9 @@ public class IfNode extends B521LangNode {
     }
     @ExplodeLoop
     @Override
-    public Value execute(VirtualFrame frame) {
-        BoolValue condV = (BoolValue) condNode.execute(frame);
-        if (condV.isTrue()) {
+    public Object execute(VirtualFrame frame) {
+        boolean condV = (boolean) condNode.execute(frame);
+        if (condV) {
             return thenNode.execute(frame);
         } else {
             return elseNode.execute(frame);

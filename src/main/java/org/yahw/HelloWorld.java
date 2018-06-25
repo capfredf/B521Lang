@@ -145,14 +145,14 @@ public class HelloWorld {
 //        a.execute(globalFrame);
 //        System.out.println("Hello, World!!!!" + c.execute(new Env()).show());
     }
-
-    static void test() {
-        Env a = new Env();
-        Env b = a.extend("a", new IntValue(10));
-        Env c = b.extend("b", new IntValue(101));
-        assert c.lookUp("a").show() == "10";
-        assert c.lookUp("b").show() == "101";
-        c.lookUp("c");
-    }
+//
+//    static void test() {
+//        Env a = new Env();
+//        Env b = a.extend("a", 10);
+//        Env c = b.extend("b", 101);
+//        assert c.lookUp("a").show() == "10";
+//        assert c.lookUp("b").show() == "101";
+//        c.lookUp("c");
+//    }
 
 }

@@ -14,16 +14,14 @@ public class isZeroNode extends B521LangNode {
 
     @Override
     @ExplodeLoop
-    public Value execute(VirtualFrame frame) {
-        Value result = this.rand.execute(frame);
-        if (result instanceof IntValue) {
-            int val = ((IntValue) result).getVal();
-            if (val == 0) {
-                return new BoolValue(true);
-            } else {
-                return new BoolValue(false);
-            }
+    public Object execute(VirtualFrame frame) {
+        int val = (int) this.rand.execute(frame);
+        if (val == 0) {
+            return true;
+        } else {
+            return false;
         }
-        return null;
+//
+//        return null;
     }
 }

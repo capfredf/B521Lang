@@ -18,7 +18,7 @@ public class AppNode extends B521LangNode {
 
     @Override
     @ExplodeLoop
-    public Value execute(VirtualFrame frame) {
+    public Object execute(VirtualFrame frame) {
         ClosureValue clos = (ClosureValue) _rator.execute(frame);
         if (this.callNode == null) {
             CompilerDirectives.transferToInterpreterAndInvalidate();
@@ -30,10 +30,10 @@ public class AppNode extends B521LangNode {
 //            throw new UnsupportedOperationException("need to implement a proper inline cache.");
 //        }
 
-        Value arg = _rand.execute(frame);
+        Object arg = _rand.execute(frame);
         clos.extendEnv(arg);
         Object[] arguments= {clos.getEnv()};
-        return (Value) this.callNode.call(frame, arguments);
+        return (Object) this.callNode.call(frame, arguments);
     }
 
 }

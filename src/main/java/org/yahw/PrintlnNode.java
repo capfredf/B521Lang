@@ -12,9 +12,9 @@ public class PrintlnNode extends B521LangNode {
 
     @Override
     @ExplodeLoop
-    public Value execute(VirtualFrame frame) {
-        Value val = this.arg.execute(frame);
-        System.out.println(val.show());
+    public Object execute(VirtualFrame frame) {
+        Object val = this.arg.execute(frame);
+        System.out.println(val.toString());
         return null;
     }
 }

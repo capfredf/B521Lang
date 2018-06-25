@@ -18,8 +18,8 @@ public class VarNode extends B521LangNode {
 
     @ExplodeLoop
     @Override
-    public Value execute(VirtualFrame frame) {
-        Value result = null;
+    public Object execute(VirtualFrame frame) {
+        Object result = null;
         VirtualFrame scope = frame;
 
         while (result == null) {
@@ -34,7 +34,7 @@ public class VarNode extends B521LangNode {
                 throw new IllegalArgumentException(String.format("identifier %s is not bound", var));
             }
             try {
-                result = (Value) scope.getObject(slot);
+                result = scope.getObject(slot);
             } catch (FrameSlotTypeException e) {
                 throw new IllegalArgumentException("slot is null...");
             }

@@ -18,7 +18,7 @@ public class B521LangRootNode extends RootNode{
 
     @ExplodeLoop
     @Override
-    public Value execute(VirtualFrame frame) {
+    public Object execute(VirtualFrame frame) {
         int last = bodyNodes.length - 1;
         for (int i = 0; i < last; i ++) {
             bodyNodes[i].execute(frame);

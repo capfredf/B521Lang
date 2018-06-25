@@ -10,7 +10,7 @@ public class Begin2Node extends B521LangNode {
     }
 
     @Override
-    public Value execute(VirtualFrame frame) {
+    public Object execute(VirtualFrame frame) {
         this.fst.execute(frame);
         return this.snd.execute(frame);
     }

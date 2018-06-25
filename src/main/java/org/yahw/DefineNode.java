@@ -13,10 +13,10 @@ public class DefineNode extends B521LangNode {
         this.valueNode = valueNode;
     }
     @Override
-    public Value execute(VirtualFrame frame) {
+    public Object execute(VirtualFrame frame) {
         FrameDescriptor fd = frame.getFrameDescriptor();
         FrameSlot slot = fd.addFrameSlot(this.sym);
-        Value res = this.valueNode.execute(frame);
+        Object res = this.valueNode.execute(frame);
         frame.setObject(slot, res);
         return null;
     }
