@@ -20,17 +20,17 @@ public class HelloWorld {
         B521LangNode almostSum = new LambdaNode(new VarNode("self"),
                 new LambdaNode(new VarNode("n"),
                         new IfNode(
-                                new isZeroNode(new VarNode("n")),
-                                new IntNode(0),
-                                new PlusNode(new VarNode("n"),
+                                new LessThanEqual(new VarNode("n"), new IntNode(1)),
+                                new VarNode("n"),
+                                new PlusNode((new AppNode(new VarNode("self"), (new MinusNode(new VarNode("n"), new IntNode(2))))),
                                         (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
 
         B521LangNode almostSumInLoop = new LambdaNode(new VarNode("self1"),
                 new LambdaNode(new VarNode("m"),
                         new IfNode(
                                 new isZeroNode(new VarNode("m")),
-                                new AppNode(new VarNode("sum"), new IntNode(500)),
-                                new Begin2Node(new AppNode(new VarNode("sum"), new IntNode(500)),
+                                new AppNode(new VarNode("sum"), new IntNode(25)),
+                                new Begin2Node(new AppNode(new VarNode("sum"), new IntNode(25)),
                                         (new AppNode(new VarNode("self1"), (new PredNode(new VarNode("m")))))))));
 
         B521LangNode Ycomb = new LambdaNode(
@@ -82,7 +82,7 @@ public class HelloWorld {
                                                                                                 new VarNode("y2"))))))),
                                                 new LetNode("loop-sum", new AppNode(new VarNode("Y2"), almostSumInLoop),
                                                         new LetNode("start", new NowNode(),
-                                                                new Begin2Node(new PrintlnNode(new AppNode(new VarNode("sum"), new IntNode(500))),
+                                                                new Begin2Node(new PrintlnNode(new AppNode(new VarNode("sum"), new IntNode(25))),
                                                                         new PrintlnNode(new MinusNode(new NowNode(), new VarNode("start")))))))));
 
 
