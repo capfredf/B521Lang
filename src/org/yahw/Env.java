@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Env {
     String _var;
-    Value _val;
+    Object _val;
     private Env _parent;
     public Env() {
         _parent = null;
@@ -16,14 +16,14 @@ public class Env {
         this();
         _parent = parent;
     }
-    public Env extend(String var, Value val) {
+    public Env extend(String var, Object val) {
         Env newEnv = new Env(this);
         newEnv._var = var;
         newEnv._val = val;
         return newEnv;
     }
 
-    public Value lookUp(String var) {
+    public Object lookUp(String var) {
         if (_parent == null) {
             throw new IllegalArgumentException(String.format("identifier %s is not bound", var));
         } else {

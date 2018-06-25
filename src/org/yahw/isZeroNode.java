@@ -8,16 +8,12 @@ public class isZeroNode extends B521LangNode {
     }
 
     @Override
-    public Value eval(Env env) {
-        Value result = this.rand.eval(env);
-        if (result instanceof IntValue) {
-            int val = ((IntValue) result).getVal();
-            if (val == 0) {
-                return new BoolValue(true);
-            } else {
-                return new BoolValue(false);
-            }
+    public Object eval(Env env) {
+        int val = (int) this.rand.eval(env);
+        if (val == 0) {
+            return true;
+        } else {
+            return false;
         }
-        return null;
     }
 }

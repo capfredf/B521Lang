@@ -7,9 +7,9 @@ public class PlusNode extends B521LangNode {
         oprand2 = y;
     }
     @Override
-    public Value eval(Env e) {
-        IntValue r1 = (IntValue) oprand1.eval(e);
-        IntValue r2 = (IntValue) oprand2.eval(e);
-        return new IntValue(r1.getVal()+r2.getVal());
+    public Object eval(Env e) {
+        int r1 = (int) oprand1.eval(e);
+        int r2 = (int) oprand2.eval(e);
+        return r1 + r2;
     }
 }

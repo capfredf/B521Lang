@@ -11,7 +11,7 @@ public class VarNode extends B521LangNode {
     }
 
     @Override
-    public Value eval(Env e) {
+    public Object eval(Env e) {
         return e.lookUp(var);
     }
 }

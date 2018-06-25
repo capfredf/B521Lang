@@ -6,7 +6,7 @@ public class IntNode extends B521LangNode {
     }
 
     @Override
-    public Value eval(Env _) {
-        return new IntValue(val);
+    public Object eval(Env _) {
+        return val;
     }
 }

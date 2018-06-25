@@ -7,16 +7,12 @@ public class PredNode extends B521LangNode {
     }
 
     @Override
-    public Value eval(Env e) {
-        Value result = this.node.eval(e);
-        if (result instanceof IntValue) {
-            int val = ((IntValue) result).getVal();
-            if (val == 0) {
-                return ((IntValue) result);
-            } else {
-                return new IntValue(val - 1);
-            }
+    public Object eval(Env e) {
+        int val = (int) this.node.eval(e);
+        if (val == 0) {
+            return val;
+        } else {
+            return val - 1;
         }
-        return null;
     }
 }

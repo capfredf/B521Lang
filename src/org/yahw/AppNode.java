@@ -7,9 +7,9 @@ public class AppNode extends B521LangNode {
         _rand = rand;
     }
     @Override
-    public Value eval(Env e) {
+    public Object eval(Env e) {
         ClosureValue clos = (ClosureValue) _rator.eval(e);
-        Value arg = _rand.eval(e);
+        Object arg = _rand.eval(e);
         return clos.apply(arg);
     }
 }

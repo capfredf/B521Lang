@@ -10,7 +10,7 @@ public class LambdaNode extends B521LangNode {
 
 
     @Override
-    public Value eval(Env e) {
+    public Object eval(Env e) {
         return new ClosureValue(var, body, e);
     }
 }

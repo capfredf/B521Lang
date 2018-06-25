@@ -12,10 +12,10 @@ public class ClosureValue extends Value {
     }
     @Override
     public String show() {
-        return null;
+        return String.format("I am a closure..%s %s", _var, _body);
     }
 
-    public Value apply(Value arg) {
+    public Object apply(Object arg) {
         Env newEnv = _env.extend(_var.getVar(), arg);
         return _body.eval(newEnv);
     }

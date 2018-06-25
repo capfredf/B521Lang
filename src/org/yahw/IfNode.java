@@ -10,9 +10,9 @@ public class IfNode extends B521LangNode {
     }
 
     @Override
-    public Value eval(Env frame) {
-        BoolValue condV = (BoolValue) condNode.eval(frame);
-        if (condV.isTrue()) {
+    public Object eval(Env frame) {
+        boolean condV = (boolean) condNode.eval(frame);
+        if (condV) {
             return thenNode.eval(frame);
         } else {
             return elseNode.eval(frame);
