@@ -12,7 +12,7 @@ public class B521LangRootNode extends RootNode{
 
     public B521LangRootNode(B521LangNode[] bodyNodes,
                             FrameDescriptor frameDescriptor) {
-        super(B521Lang.class, null, frameDescriptor);
+        super(null, frameDescriptor);
         this.bodyNodes = bodyNodes;
     }
 

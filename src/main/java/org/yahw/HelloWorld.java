@@ -50,11 +50,11 @@ public class HelloWorld {
                     new IntNode(30)
         );
 
-        app = new IfNode(
-                (new isZeroNode(new IntNode(0))),
-                new PredNode(new IntNode(20)),
-                new IntNode(10)
-        );
+//        app = new IfNode(
+//                (new isZeroNode(new IntNode(0))),
+//                new PredNode(new IntNode(20)),
+//                new IntNode(10)
+//        );
 
         Ycomb = new DefineNode("Y",
                 new LambdaNode(
@@ -127,21 +127,23 @@ public class HelloWorld {
         B521LangNode startNode = new DefineNode("start", new NowNode());
         B521LangNode end = new PrintlnNode(new MinusNode(new NowNode(), new VarNode("start")));
 //        app = new AppNode(new AppNode(
-//                almostSumIn,
+//                almostSum,
 //                new LambdaNode(new VarNode("x"),
 //                        new PredNode(new VarNode("x")))), new IntNode(10));
-        DefineNode def = new DefineNode("x", new IntNode(10));
-        B521LangNode[] allNodes = {Ycomb, Ycomb2, defineSum, defineLoopSum,
+//        DefineNode def = new DefineNode("x", new IntNode(10));
+        B521LangNode[] allNodes = {Ycomb, Ycomb2, defineSum,
+                defineLoopSum,
                 new AppNode(new VarNode("loop-sum"),  new IntNode(6)),
                 startNode, app, end};
+//        B521LangNode[] allNodes = {app};
         B521LangRootNode rootNode = new B521LangRootNode(allNodes, globalFrameDescriptor);
         long start = System.currentTimeMillis();
-        Value res = null;
+        Object res = null;
         RootCallTarget rootTgtCall = Truffle.getRuntime().createCallTarget(rootNode);
-        res = (Value) rootTgtCall.call(new Object[]{globalFrame.materialize()});
+        res = rootTgtCall.call(new Object[]{globalFrame.materialize()});
 
         //Value res = rootNode.execute(globalFrame);
-        // System.out.println("Result is " + res.show());
+        System.out.println("Result is " + res);
         System.out.println("Time used: " + ((int) System.currentTimeMillis() - (int) start));
 //        a.execute(globalFrame);
 //        System.out.println("Hello, World!!!!" + c.execute(new Env()).show());

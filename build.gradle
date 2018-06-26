@@ -13,10 +13,10 @@ repositories {
 }
 
 dependencies {
-    compile 'com.oracle.truffle:truffle-api:0.12'
+    compile 'com.oracle.truffle:truffle-api:1.0.0-rc2'
 
-    apt 'com.oracle.truffle:truffle-api:0.12'
-    apt 'com.oracle.truffle:truffle-dsl-processor:0.12'
+    apt 'com.oracle.truffle:truffle-api:1.0.0-rc2'
+    apt 'com.oracle.truffle:truffle-dsl-processor:1.0.0-rc2'
 
     testCompile 'junit:junit:4.12'
 }

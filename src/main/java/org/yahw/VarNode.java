@@ -23,11 +23,6 @@ public class VarNode extends B521LangNode {
         VirtualFrame scope = frame;
 
         while (result == null) {
-            if (scope.getArguments()[0] instanceof VirtualFrame) {
-                scope = (VirtualFrame) scope.getArguments()[0];
-            } else {
-                scope = scope;
-            }
             FrameDescriptor frameDescriptor = scope.getFrameDescriptor();
             FrameSlot slot = frameDescriptor.findFrameSlot(this.var);
             if (slot == null) {
@@ -38,6 +33,8 @@ public class VarNode extends B521LangNode {
             } catch (FrameSlotTypeException e) {
                 throw new IllegalArgumentException("slot is null...");
             }
+
+            scope = (VirtualFrame) scope.getArguments()[0];
         }
         return result;
 //        return e.lookUp(var);
