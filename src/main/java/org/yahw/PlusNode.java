@@ -1,26 +1,20 @@
 package org.yahw;
 
-import com.oracle.truffle.api.dsl.NodeChild;
-import com.oracle.truffle.api.dsl.NodeChildren;
-import com.oracle.truffle.api.dsl.Specialization;
+import com.oracle.truffle.api.dsl.*;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.ExplodeLoop;
 import com.oracle.truffle.api.nodes.NodeInfo;
 
 @NodeInfo(shortName = "plus")
-public class PlusNode extends B521LangNode {
+@TypeSystemReference(YAHWTypes.class)
+@NodeChildren({@NodeChild("leftNode"), @NodeChild("rightNode")})
+@GenerateNodeFactory
+public abstract class PlusNode extends B521LangNode {
     @Child private B521LangNode left, right;
 
-    public PlusNode(B521LangNode x, B521LangNode y) {
-        left = x;
-        right = y;
+    @Specialization
+    public int plus(int left, int right) {
+        return left + right;
     }
 
-    @ExplodeLoop
-    @Override
-    public Object execute(VirtualFrame frame) {
-        int r1 = (int) left.execute(frame);
-        int r2 = (int) right.execute(frame);
-        return r1 + r2;
-    }
 }

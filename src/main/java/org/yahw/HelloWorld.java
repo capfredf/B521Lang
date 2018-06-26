@@ -30,7 +30,7 @@ public class HelloWorld {
                 new AppNode(
                         new LambdaNode(new VarNode("x"),
                                 new LambdaNode(new VarNode("x"),
-                                        new PlusNode(new VarNode("x"), new VarNode("x"))
+                                        PlusNodeFactory.create(new VarNode("x"), new VarNode("x"))
                                 )
                         ),
                         new IntNode(10)
@@ -42,7 +42,7 @@ public class HelloWorld {
                     new LambdaNode(new VarNode("x"),
                             new AppNode(
                                     new LambdaNode(new VarNode("x"),
-                                            new PlusNode(new VarNode("x"), new VarNode("x"))
+                                            PlusNodeFactory.create(new VarNode("x"), new VarNode("x"))
                                     ),
                                     new IntNode(10)
                             )
@@ -108,7 +108,7 @@ public class HelloWorld {
                                 new LessThanEqual(new VarNode("n"), new IntNode(1)),
                                 new VarNode("n"),
 //                                new PlusNode(new VarNode("n"), (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
-                                new PlusNode((new AppNode(new VarNode("self"), (new MinusNode(new VarNode("n"), new IntNode(2))))),
+                                PlusNodeFactory.create((new AppNode(new VarNode("self"), (MinusNodeFactory.create(new VarNode("n"), new IntNode(2))))),
                                         (new AppNode(new VarNode("self"), (new PredNode(new VarNode("n")))))))));
 
         B521LangNode almostSumInLoop = new LambdaNode(new VarNode("self1"),
@@ -125,7 +125,7 @@ public class HelloWorld {
         app = new PrintlnNode(new AppNode(new VarNode("sum"),  new IntNode(25)));
 
         B521LangNode startNode = new DefineNode("start", new NowNode());
-        B521LangNode end = new PrintlnNode(new MinusNode(new NowNode(), new VarNode("start")));
+        B521LangNode end = new PrintlnNode(MinusNodeFactory.create(new NowNode(), new VarNode("start")));
 //        app = new AppNode(new AppNode(
 //                almostSum,
 //                new LambdaNode(new VarNode("x"),

@@ -1,24 +1,22 @@
 package org.yahw;
 
+import com.oracle.truffle.api.dsl.*;
 import com.oracle.truffle.api.frame.VirtualFrame;
+import com.oracle.truffle.api.instrumentation.GenerateWrapper;
+import com.oracle.truffle.api.instrumentation.InstrumentableNode;
 import com.oracle.truffle.api.nodes.ExplodeLoop;
 import com.oracle.truffle.api.nodes.NodeInfo;
 
+@TypeSystemReference(YAHWTypes.class)
 @NodeInfo(shortName = "-")
-public class MinusNode extends B521LangNode {
+@NodeChildren({@NodeChild("leftNode"), @NodeChild("rightNode")})
+@GenerateNodeFactory
+public abstract class MinusNode extends B521LangNode {
     @Child private B521LangNode left, right;
 
-    public MinusNode(B521LangNode x, B521LangNode y) {
-        left = x;
-        right = y;
-    }
-
-    @ExplodeLoop
-    @Override
-    public Object execute(VirtualFrame frame) {
-        int r1 = (int) left.execute(frame);
-        int r2 = (int) right.execute(frame);
-        return r1 - r2;
+    @Specialization
+    public int minus(int left, int right) {
+        return left - right;
     }
 
 }

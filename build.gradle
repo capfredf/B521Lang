@@ -21,6 +21,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+//applicationDefaultJvmArgs = ["-Dgraal.Dump=Truffle:1", "-Dgraal.TruffleBackgroundCompilation=false", "-Dgraal.TraceTruffleCompilation=true" , "-Dgraal.TraceTruffleCompilationDetails=true"]
 applicationName = 'yahw-lang'
 mainClassName = 'HelloWorld'
 
