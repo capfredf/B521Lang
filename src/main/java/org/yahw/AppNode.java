@@ -17,8 +17,7 @@ public class AppNode extends B521LangNode {
     public AppNode (B521LangNode rator, B521LangNode rand) {
         _rator = rator;
         _rand = rand;
-        dispatchNode = new UninitializedDispatchNode();
-
+        dispatchNode = DispatchNodeGen.create();
     }
 
     @Override
@@ -46,9 +45,8 @@ public class AppNode extends B521LangNode {
         Object arg = _rand.execute(frame);
         clos.extendEnv(arg);
         Object[] arguments= {clos.getEnv()};
-//        return this.dispatchNode.executeDispatch(frame,
-//                clos.callTarget, arguments);
-        return (Object) this.callNode.call(clos.callTarget, arguments);
+        return this.dispatchNode.executeDispatch(clos, arguments);
+//        return (Object) this.callNode.call(clos.callTarget, arguments);
     }
 
 }
