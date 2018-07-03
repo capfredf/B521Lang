@@ -1,24 +1,31 @@
 package org.yahw;
 
+import com.oracle.truffle.api.dsl.NodeChild;
+import com.oracle.truffle.api.dsl.NodeField;
+import com.oracle.truffle.api.dsl.Specialization;
 import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.FrameSlot;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.NodeInfo;
 
-@NodeInfo(shortName = "lambda")
-public class LambdaNode extends B521LangNode{
-    @Child private VarNode var;
-    @Child private B521LangNode body;
+@NodeField(name = "var", type = VarNode.class)
+@NodeField(name = "body", type = B521LangNode.class)
+public abstract class LambdaNode extends B521LangNode{
+    protected abstract VarNode getVar();
+    protected abstract B521LangNode getBody();
+    protected ClosureValue closValue;
 
-    public LambdaNode (VarNode var, B521LangNode body) {
-        this.var = var;
-        this.body = body;
+    protected boolean isSet() {
+        return this.closValue != null;
     }
+    @Specialization(guards = "isSet()")
+    public ClosureValue getCachedClosure(VirtualFrame frame) {
+        return closValue;
+    }
+    @Specialization(replaces = {"getCachedClosure"})
+    public Object getClosure(VirtualFrame frame) {
 
-
-    @Override
-    public Object execute(VirtualFrame frame) {
-        FrameDescriptor frameDescriptor = frame.getFrameDescriptor();
-        return new ClosureValue(var, body, frame);
+        this.closValue = new ClosureValue(getVar(), getBody(), frame);
+        return this.closValue;
     }
 }

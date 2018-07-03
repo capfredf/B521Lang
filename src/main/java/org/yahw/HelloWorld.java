@@ -22,14 +22,14 @@ public class HelloWorld {
 //        a = VarNodeGen.create("x");
 //        b = VarNodeGen.create("x");
 //        body = new PlusNode(a, b);
-//        lambda = new LambdaNode(VarNodeGen.create("x"), body);
-//        outter = new LambdaNode(VarNodeGen.create("x"), lambda);
+//        lambda = LambdaNodeGen.create(VarNodeGen.create("x"), body);
+//        outter = LambdaNodeGen.create(VarNodeGen.create("x"), lambda);
 //        c = new AppNode(outter, new IntNode(10));
 //        app = new AppNode(c, new IntNode(30));
         app = new AppNode(
                 new AppNode(
-                        new LambdaNode(VarNodeGen.create("x"),
-                                new LambdaNode(VarNodeGen.create("x"),
+                        LambdaNodeGen.create(VarNodeGen.create("x"),
+                                LambdaNodeGen.create(VarNodeGen.create("x"),
                                         PlusNodeFactory.create(VarNodeGen.create("x"), VarNodeGen.create("x"))
                                 )
                         ),
@@ -39,9 +39,9 @@ public class HelloWorld {
         );
 
         app = new AppNode(
-                    new LambdaNode(VarNodeGen.create("x"),
+                    LambdaNodeGen.create(VarNodeGen.create("x"),
                             new AppNode(
-                                    new LambdaNode(VarNodeGen.create("x"),
+                                    LambdaNodeGen.create(VarNodeGen.create("x"),
                                             PlusNodeFactory.create(VarNodeGen.create("x"), VarNodeGen.create("x"))
                                     ),
                                     new IntNode(10)
@@ -57,53 +57,53 @@ public class HelloWorld {
 //        );
 
         Ycomb = new DefineNode("Y",
-                new LambdaNode(
+                LambdaNodeGen.create(
                         VarNodeGen.create("f"),
                         new AppNode(
-                                new LambdaNode(
+                                LambdaNodeGen.create(
                                         VarNodeGen.create("z"),
                                     new AppNode(
                                             VarNodeGen.create("f"),
-                                            new LambdaNode(
+                                            LambdaNodeGen.create(
                                                     VarNodeGen.create("y"),
                                                     new AppNode(
                                                             new AppNode(VarNodeGen.create("z"), VarNodeGen.create("z")),
                                                             VarNodeGen.create("y"))))),
-                            new LambdaNode(
+                            LambdaNodeGen.create(
                                     VarNodeGen.create("x"),
                                     new AppNode(
                                             VarNodeGen.create("f"),
-                                            new LambdaNode(
+                                            LambdaNodeGen.create(
                                                     VarNodeGen.create("y"),
                                                     new AppNode(
                                                             new AppNode(VarNodeGen.create("x"), VarNodeGen.create("x")),
                                                             VarNodeGen.create("y"))))))));
 
         DefineNode Ycomb2 = new DefineNode("Y2",
-                new LambdaNode(
+                LambdaNodeGen.create(
                         VarNodeGen.create("f2"),
                         new AppNode(
-                                new LambdaNode(
+                                LambdaNodeGen.create(
                                         VarNodeGen.create("z2"),
                                         new AppNode(
                                                 VarNodeGen.create("f2"),
-                                                new LambdaNode(
+                                                LambdaNodeGen.create(
                                                         VarNodeGen.create("y2"),
                                                         new AppNode(
                                                                 new AppNode(VarNodeGen.create("z2"), VarNodeGen.create("z2")),
                                                                 VarNodeGen.create("y2"))))),
-                                new LambdaNode(
+                                LambdaNodeGen.create(
                                         VarNodeGen.create("x2"),
                                         new AppNode(
                                                 VarNodeGen.create("f2"),
-                                                new LambdaNode(
+                                                LambdaNodeGen.create(
                                                         VarNodeGen.create("y2"),
                                                         new AppNode(
                                                                 new AppNode(VarNodeGen.create("x2"), VarNodeGen.create("x2")),
                                                                 VarNodeGen.create("y2"))))))));
 
-        almostSum = new LambdaNode(VarNodeGen.create("self"),
-                new LambdaNode(VarNodeGen.create("n"),
+        almostSum = LambdaNodeGen.create(VarNodeGen.create("self"),
+                LambdaNodeGen.create(VarNodeGen.create("n"),
                         new IfNode(
                                 new LessThanEqual(VarNodeGen.create("n"), new IntNode(1)),
                                 VarNodeGen.create("n"),
@@ -111,8 +111,8 @@ public class HelloWorld {
                                 PlusNodeFactory.create((new AppNode(VarNodeGen.create("self"), (MinusNodeFactory.create(VarNodeGen.create("n"), new IntNode(2))))),
                                         (new AppNode(VarNodeGen.create("self"), (new PredNode(VarNodeGen.create("n")))))))));
 
-        B521LangNode almostSumInLoop = new LambdaNode(VarNodeGen.create("self1"),
-                new LambdaNode(VarNodeGen.create("m"),
+        B521LangNode almostSumInLoop = LambdaNodeGen.create(VarNodeGen.create("self1"),
+                LambdaNodeGen.create(VarNodeGen.create("m"),
                         new IfNode(
                                 new isZeroNode(VarNodeGen.create("m")),
                                 new AppNode(VarNodeGen.create("sum"), new IntNode(25)),
@@ -128,7 +128,7 @@ public class HelloWorld {
         B521LangNode end = new PrintlnNode(MinusNodeFactory.create(new NowNode(), VarNodeGen.create("start")));
 //        app = new AppNode(new AppNode(
 //                almostSum,
-//                new LambdaNode(VarNodeGen.create("x"),
+//                LambdaNodeGen.create(VarNodeGen.create("x"),
 //                        new PredNode(VarNodeGen.create("x")))), new IntNode(10));
 //        DefineNode def = new DefineNode("x", new IntNode(10));
         B521LangNode[] allNodes = {Ycomb, Ycomb2, defineSum,
