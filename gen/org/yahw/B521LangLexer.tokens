@@ -1,0 +1,12 @@
+T__0=1
+T__1=2
+T__2=3
+INT=4
+BOOLEAN=5
+STRING=6
+SYMBOL=7
+COMMENT=8
+WS=9
+'('=1
+')'=2
+'\''=3

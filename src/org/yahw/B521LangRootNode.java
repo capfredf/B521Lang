@@ -7,10 +7,15 @@ public class B521LangRootNode {
     }
 
     public Object eval(Env e) {
-        int last = this.children.length - 1;
-        for (int i = 0; i<last; i++) {
-            this.children[i].eval(e);
+        Object result = null;
+        for (int i = 0; i < this.children.length; i++) {
+            B521LangNode child = this.children[i];
+            if (child instanceof DefineNode) {
+                e = ((DefineNode) child).extendEnv(e);
+            } else {
+                result = child.eval(e);
+            }
         }
-        return this.children[last].eval(e);
+        return result;
     }
 }

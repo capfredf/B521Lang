@@ -1,0 +1,31 @@
+(define plus20 (lambda (x) (+ x 20)))
+;; (plus20 10)
+(plus20 10)
+
+(define Y (lambda (f)
+               ((lambda (x)
+                  (f (lambda (y) ((x x) y))))
+                (lambda (x)
+                  (f (lambda (y) ((x x) y)))))))
+
+
+(define sum (Y
+             (lambda (self)
+               (lambda (n)
+                 (if
+                  (zero? n) 0
+                  (+ n (self (- n 1))))))))
+
+(define fib ((lambda (f)
+               ((lambda (x)
+                  (f (lambda (y) ((x x) y))))
+                (lambda (x)
+                  (f (lambda (y) ((x x) y))))))
+             (lambda (f)
+               (lambda (n)
+                 (if
+                  (<= n 1) n
+                  (+ (f (- n 1)) (f (- n 2))))))))
+
+(sum 100)
+(fib 30)

@@ -1,8 +1,19 @@
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.yahw.*;
+
+import java.io.IOException;
 
 
 public class HelloWorld {
     public static void main(String[] args) {
+        B521LangNode[] nodes = main2();
+        B521LangRootNode rootNode = new B521LangRootNode(nodes);
+        System.out.println(rootNode.eval(new Env()));
+    }
+    private void main1() {
         B521LangNode a, b, c, body, lambda, app;
 //        test();
 //        a = new IntNode(10);
@@ -97,6 +108,22 @@ public class HelloWorld {
         assert c.lookUp("a").toString() == "10";
         assert c.lookUp("b").toString() == "101";
         c.lookUp("c");
+    }
+
+    static B521LangNode[] main2() {
+        B521LangLexer lexer = null;
+        try {
+            lexer = new B521LangLexer( CharStreams.fromFileName("/Users/phay/IdeaProjects/vanilla-b521-lang/test.b521"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        CommonTokenStream tokens = new CommonTokenStream( lexer );
+        B521LangParser parser = new B521LangParser( tokens );
+        ParseTree tree = parser.file();
+        ParseTreeWalker walker = new ParseTreeWalker();
+//        walker.walk();
+        ValOfVisitor vv = new ValOfVisitor();
+        return vv.visit(tree);
     }
 
 }

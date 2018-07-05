@@ -27,7 +27,7 @@ public class Env {
         if (_parent == null) {
             throw new IllegalArgumentException(String.format("identifier %s is not bound", var));
         } else {
-            if (var == _var) {
+            if (var.equals(_var)) {
                 return _val;
             } else {
                 return _parent.lookUp(var);
